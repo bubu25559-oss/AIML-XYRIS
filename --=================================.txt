@@ -1,0 +1,1170 @@
+--========================================================
+-- AIM CONTROL + KEY SYSTEM
+-- SINGLE LOCAL SCRIPT
+--========================================================
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+local Camera = workspace.CurrentCamera
+
+--========================================================
+-- CONFIG
+--========================================================
+
+local JOTFORM_URL = "https://app.jotform.com/262192403563353"
+
+local WHITELIST = {
+	["3H3PGC43"] = true,
+	["VWFH9S50"] = true,
+	["NJHCSON8"] = true,
+	["6O2OVPWH"] = true,
+	["CV8GDNRB"] = true,
+	["OX6AOJRP"] = true,
+	["UOYJK0WM"] = true,
+	["1GVZX6S5"] = true,
+	["YBXGPYWI"] = true,
+	["2BPKLV2D"] = true,
+	["5E0Q9MSD"] = true,
+	["Q1LC0ELQ"] = true,
+	["23LFWMKO"] = true,
+	["YJO9SQZ5"] = true,
+	["ZE1FWP7L"] = true,
+	["S96LAN8V"] = true,
+	["LBTSMQCT"] = true,
+	["6DEJJ9R3"] = true,
+	["2XN900WN"] = true,
+	["GXFO3F74"] = true,
+	["Q00R4FJR"] = true,
+	["5Q1IOPG0"] = true,
+	["ES69R0TG"] = true,
+	["M1ZCKRVX"] = true,
+	["XGG9CEA4"] = true,
+	["5I30PISF"] = true,
+	["BCM5473Z"] = true,
+	["6UQ6F17T"] = true,
+	["023HSK6B"] = true,
+	["T5WELGXZ"] = true,
+	["FN0NBE9Z"] = true,
+	["KBB8BB1E"] = true,
+	["7HDWOC3J"] = true,
+	["NESWQLOU"] = true,
+	["UXKZSV03"] = true,
+	["RILKLFHD"] = true,
+	["F9KCK14L"] = true,
+	["NHI275CO"] = true,
+	["OLBH97L5"] = true,
+	["DYDH7EDE"] = true,
+	["3JO3VZNC"] = true,
+	["1CT64GD8"] = true,
+	["3KAUMGPS"] = true,
+	["4VBKQMSP"] = true,
+	["BRW9GGCG"] = true,
+	["BYYXFA6L"] = true,
+	["CLWYU6U0"] = true,
+	["4Q0E7X40"] = true,
+	["BY3ZEENK"] = true,
+	["IHVRS0HM"] = true,
+	["9MUJ8AUH"] = true,
+	["VLA3BB9N"] = true,
+	["JBCZP2O2"] = true,
+	["3SGSOJM0"] = true,
+	["6CUWIS1N"] = true,
+	["UGOUGFWQ"] = true,
+	["XLE8KNYD"] = true,
+	["JL21U7Y0"] = true,
+	["UF2W89L6"] = true,
+	["TGAXNL8T"] = true,
+	["H6PL55UA"] = true,
+	["H6JY5CWC"] = true,
+	["EMVPNQY5"] = true,
+	["PDKSK1BF"] = true,
+	["7R1SEVC9"] = true,
+	["QGUIZ9I5"] = true,
+	["65IHYMQR"] = true,
+	["Z3F2SHT6"] = true,
+	["BNR67BVN"] = true,
+	["X51QBXZK"] = true,
+	["7SJYXDT6"] = true,
+	["94CNLRO2"] = true,
+	["HLKUWCJR"] = true,
+	["QEZ7XMU0"] = true,
+	["ZO5W2HVS"] = true,
+	["XUIZ3RJH"] = true,
+	["WZJA2665"] = true,
+	["5L8LPSW4"] = true,
+	["BZBJAGAA"] = true,
+	["G9GB4GKF"] = true,
+	["DK6IZ3YX"] = true,
+	["J6RAOO1P"] = true,
+	["TXR80OLS"] = true,
+	["EOGV82US"] = true,
+	["VCWIES31"] = true,
+	["2HCEXZPY"] = true,
+	["NQKC0FOH"] = true,
+	["ANRNG2QQ"] = true,
+	["7XCPXTZ2"] = true,
+	["WWQGH7SU"] = true,
+	["70TRGJ01"] = true,
+	["WK0NPHWD"] = true,
+	["GL9QE2KK"] = true,
+	["4J349HFO"] = true,
+	["PD4TWYW0"] = true,
+	["74ME916S"] = true,
+	["LO9M0HA0"] = true,
+	["9PWLRIGG"] = true,
+	["37ZDEI64"] = true,
+	["VY4S87D8"] = true,
+	["EAKBN2ZI"] = true,
+	["1WY6ZF71"] = true,
+	["BJI252PK"] = true,
+	["1VMYHBYE"] = true,
+	["TTYBJCMX"] = true,
+	["F1M0JL5M"] = true,
+	["LC48CI3Z"] = true,
+	["FBXOEYLJ"] = true,
+	["T7TLZI0S"] = true,
+	["LYHOWYCK"] = true,
+	["45XG5S7Q"] = true,
+	["Z7YAPIKD"] = true,
+	["DF7NSREJ"] = true,
+	["02Y0L3DR"] = true,
+	["FX8JB6UY"] = true,
+	["H3KIAXO3"] = true,
+	["FO4J6MPC"] = true,
+	["Y0D01I9R"] = true,
+	["X6J0XQUE"] = true,
+	["49WS1XH0"] = true,
+	["BVOCSBGP"] = true,
+	["P7HPYAKN"] = true,
+	["SECG31OP"] = true,
+	["R8JD1KKI"] = true,
+	["L65CMAEK"] = true,
+	["TIZLI0FQ"] = true,
+	["8W1F9YPE"] = true,
+	["HZZ4R5HH"] = true,
+	["OZSLLWQM"] = true,
+	["9Z68Z4IL"] = true,
+	["S57LPZLC"] = true,
+	["4N5Q5FK1"] = true,
+	["WEYLSJ3B"] = true,
+	["7CEL5144"] = true,
+	["JBVOKWN2"] = true,
+	["GDQKT39Y"] = true,
+	["CGYYG3ME"] = true,
+	["22QLRUUZ"] = true,
+	["HRK17856"] = true,
+	["11FA50UA"] = true,
+	["7LK3YO7D"] = true,
+	["ER8G5JAH"] = true,
+	["HV7L72FS"] = true,
+	["GKXPSCJ8"] = true,
+	["E57QTQJ0"] = true,
+	["QO7PDUX6"] = true,
+	["OBQDB5AY"] = true,
+	["7H08FJUB"] = true,
+	["DBDTWDLC"] = true,
+	["45AI47PO"] = true,
+	["EAVFYCJV"] = true,
+	["4PYEVKHJ"] = true,
+	["GXL0MUTE"] = true,
+	["V2W8LP49"] = true,
+	["QOVHR3WK"] = true,
+	["DM682HJP"] = true,
+	["J0JGOB6G"] = true,
+	["WRZUYZ14"] = true,
+	["0WUFANKG"] = true,
+	["8B6A1JZ6"] = true,
+	["WLRX8WRH"] = true,
+	["CP3SJAMF"] = true,
+	["0V31WLSC"] = true,
+	["MRZC9OZT"] = true,
+	["0SAJQ2ZX"] = true,
+	["JEIJB1YO"] = true,
+	["ZNDP901S"] = true,
+	["4070UB7H"] = true,
+	["NW2AYEC7"] = true,
+	["S99HHKF5"] = true,
+	["7FFQ5H2W"] = true,
+	["BKY1ZBTB"] = true,
+	["BYN677D7"] = true,
+	["HF90YWRC"] = true,
+	["2169SBZY"] = true,
+	["J3K0LTUN"] = true,
+	["I0H1Y3PZ"] = true,
+	["JG08G5L8"] = true,
+	["LWVHCUAU"] = true,
+	["9DEAV00O"] = true,
+	["2ILPZ3HH"] = true,
+	["W5VJHUQ2"] = true,
+	["C0EJY312"] = true,
+	["3DYV7ZRA"] = true,
+	["MS2KYKHE"] = true,
+	["ZN3PA9UB"] = true,
+	["IK78CURH"] = true,
+	["6IMW3Q57"] = true,
+	["UI0FCMGA"] = true,
+	["KLIZYZMN"] = true,
+	["DDXQ692Y"] = true,
+	["PVK0NIBZ"] = true,
+	["THLJYD2G"] = true,
+	["K22M9Q3F"] = true,
+	["WI3KCSZ7"] = true,
+	["2ZWGXR0B"] = true,
+	["L3KDA0JV"] = true,
+	["GL0VR609"] = true,
+	["FFSF37JP"] = true,
+	["YEKX8OD5"] = true,
+	["6WVKA8DQ"] = true,
+	["K43Y1U2Y"] = true,
+	["OTZ9RSKK"] = true,
+	["0ZOI743U"] = true,
+	["HH131SIL"] = true,
+	["0VP6D8Z3"] = true,
+	["V8S1CR0X"] = true,
+	["PVKUMK6C"] = true,
+	["W8VRJGBB"] = true,
+	["HSB15A51"] = true,
+	["W3VYHJ4D"] = true,
+	["NN2UMMW3"] = true,
+	["EWE4ZL8Q"] = true,
+	["PGNADEIP"] = true,
+	["OBLFDN0Y"] = true,
+	["LPCAGNGA"] = true,
+	["J8PLXG4Q"] = true,
+	["IX3VC6P8"] = true,
+	["IEMDMRJC"] = true,
+	["K58KFR5Z"] = true,
+	["74EBSE1E"] = true,
+	["0W5M5GQ3"] = true,
+	["NMGU91SW"] = true,
+	["7ZEB9HYD"] = true,
+	["TM7CHQVE"] = true,
+	["XO1ORMMG"] = true,
+	["V9JR24BC"] = true,
+	["J5P56JNJ"] = true,
+	["I6Q8L5Q7"] = true,
+	["8AZUAYG2"] = true,
+	["6XEGPXM5"] = true,
+	["TR888LRB"] = true,
+	["4WX4YB7T"] = true,
+	["HFB6H6I8"] = true,
+	["SM72F1XP"] = true,
+	["7UDRGJBI"] = true,
+	["YASLMUYB"] = true,
+	["UQ6NPGCG"] = true,
+	["M3YHFUT3"] = true,
+	["SNF0AXJJ"] = true,
+	["PCW77LNG"] = true,
+	["3HEXC958"] = true,
+	["GBLDMZF4"] = true,
+	["L0DFNV7X"] = true,
+	["KU4EMM1J"] = true,
+	["ED2VPW2O"] = true,
+	["JP7YOC7Q"] = true,
+	["0PBIEFAI"] = true,
+	["068XMKJV"] = true,
+	["0NHES0ML"] = true,
+	["TOSQUL0W"] = true,
+	["A97N1BD6"] = true,
+	["41V6PLJG"] = true,
+	["D4DDZ2ZN"] = true,
+	["HC2S677S"] = true,
+	["X26QHKP6"] = true,
+	["E4QS82JU"] = true,
+	["AZL41RGK"] = true,
+	["L199KVH7"] = true,
+	["58S8PE1T"] = true,
+	["DGIHJDQU"] = true,
+	["077CEP6M"] = true,
+	["E9JQJG0H"] = true,
+	["ETZXAVV0"] = true,
+	["80VZPG1Q"] = true,
+	["553ILPKD"] = true,
+	["C3NGSJT7"] = true,
+	["P41WV2YU"] = true,
+	["H7KX3P3O"] = true,
+	["41TKF2VF"] = true,
+	["13FV8F6U"] = true,
+	["Q6X8AYBX"] = true,
+	["FPJXBSUZ"] = true,
+	["KNLU7A4P"] = true,
+	["S4TMO5XM"] = true,
+	["573LSAMO"] = true,
+	["XOWAI56B"] = true,
+	["D8F2Y0NM"] = true,
+	["E35BZ9KP"] = true,
+	["1NDXO1IF"] = true,
+	["XONRGZFZ"] = true,
+	["4SKDHNOL"] = true,
+	["2CC5T5IA"] = true,
+	["P6L6JDZQ"] = true,
+	["CNKTSGLA"] = true,
+	["CA8V21ZE"] = true,
+	["GEKKJO5R"] = true,
+	["5X3X5JV9"] = true,
+	["0CLTRZDU"] = true,
+	["WDM5VZCF"] = true,
+	["YETM1SKP"] = true,
+	["GEI0D4UP"] = true,
+	["AZFQBUTQ"] = true,
+	["OHZXWDQM"] = true,
+	["8X2HGVZB"] = true,
+	["HHSFBYIR"] = true,
+	["9VB8JIGQ"] = true,
+	["BDPXNYAL"] = true,
+	["VPMW1TTP"] = true,
+	["AM2DRQTA"] = true,
+	["AYBMGRKE"] = true,
+	["LO3YZ907"] = true,
+	["CXVQ06MI"] = true,
+	["TYRP97IZ"] = true,
+	["A1DQKD7N"] = true,
+	["UN0GAJ8F"] = true,
+	["0NWNSHRQ"] = true,
+	["CSID6B0D"] = true,
+	["YLK4RBD9"] = true,
+	["PXD88AY5"] = true,
+	["SK2OLGOE"] = true,
+	["EM9RIORA"] = true,
+	["KP9GZK35"] = true,
+	["IRMSFHUE"] = true,
+	["BN2QONB8"] = true,
+	["35F4UYI5"] = true,
+	["VLQ1CI82"] = true,
+	["Y9GN5XDR"] = true,
+	["WHC1ZB7R"] = true,
+	["1XNHW2LP"] = true,
+	["AAFMK84N"] = true,
+	["802S6TRS"] = true,
+	["ZKODJQ8X"] = true,
+	["18CV3EFA"] = true,
+	["JNDVQOM3"] = true,
+	["97GYP2UX"] = true,
+	["OCW6FUW7"] = true,
+	["NXWEJMOM"] = true,
+	["U61HHDH4"] = true,
+	["S33NEM6U"] = true,
+	["00ZF4INZ"] = true,
+	["EP1LLP0T"] = true,
+	["YS04OYHY"] = true,
+	["VLUWWDFU"] = true,
+	["4TLE134M"] = true,
+	["V0P9L7V1"] = true,
+	["2TB1OL0I"] = true,
+	["ORZEQ7CG"] = true,
+	["KS9IZZMA"] = true,
+	["O3FJA6LY"] = true,
+	["044S6WHT"] = true,
+	["EA8B6S6E"] = true,
+	["NTKW8OW3"] = true,
+	["146Z6716"] = true,
+	["KG429D7P"] = true,
+	["ZRJYASWM"] = true,
+	["DZJAOENZ"] = true,
+	["IS6O3HRW"] = true,
+	["RR3Z3FN7"] = true,
+	["QSFLD6XA"] = true,
+	["3NMUDJEP"] = true,
+	["AC5D7SKA"] = true,
+	["9O6JUG7P"] = true,
+	["5JK5AH3L"] = true,
+	["863JFWOV"] = true,
+	["5T2063WT"] = true,
+	["2ZCPC4P9"] = true,
+	["78Z2M9GH"] = true,
+	["40NUVWPL"] = true,
+	["6IZD0M6M"] = true,
+	["ZCE5DTIF"] = true,
+	["51L5IIX3"] = true,
+	["O1I1AA8O"] = true,
+	["X5EABEO4"] = true,
+	["YC76KJ4V"] = true,
+	["KSJSO8GZ"] = true,
+	["WLUAAJPD"] = true,
+	["7I5XLAVI"] = true,
+	["PDXUCEPX"] = true,
+	["4J2WL709"] = true,
+	["SQOX83YZ"] = true,
+	["AU4UJ30S"] = true,
+	["ANSIQKXY"] = true,
+	["BQV62GVU"] = true,
+	["D6WZFT0L"] = true,
+	["UXNL7HEI"] = true,
+	["Z6HNBL72"] = true,
+	["W0ZFSDBW"] = true,
+	["23QNJC19"] = true,
+	["0O47XBP5"] = true,
+	["1K658BIX"] = true,
+	["3TW593XH"] = true,
+	["BUDDJR4M"] = true,
+	["F79HFJYU"] = true,
+	["UGB2TMVT"] = true,
+	["2UBCAQZV"] = true,
+	["LRW7040W"] = true,
+	["ML5EZ7NN"] = true,
+	["1RF12OAJ"] = true,
+	["HZV8IYMH"] = true,
+	["KG87OQJP"] = true,
+	["V4M362VH"] = true,
+	["7XRYQNGB"] = true,
+	["A0OGY1QS"] = true,
+	["YS0FZGI7"] = true,
+	["KO7GKQXV"] = true,
+	["5VZQHRMJ"] = true,
+	["IIIJ320C"] = true,
+	["72UJ08YA"] = true,
+	["BWT0NULL"] = true,
+	["1SSNWWRU"] = true,
+	["23TQV2E6"] = true,
+	["AT8FEWFX"] = true,
+	["U9MKV75H"] = true,
+	["06EZHLRA"] = true,
+	["Z4X8ZOZB"] = true,
+	["9NR25OG8"] = true,
+	["OC0HN9R8"] = true,
+	["F7D3FHMC"] = true,
+	["EWPZC7F9"] = true,
+	["CK3DAG3Z"] = true,
+	["L0OL2GJC"] = true,
+	["6JT459W4"] = true,
+	["0L409V7Y"] = true,
+	["F8FOR3TK"] = true,
+	["OE3P0MJD"] = true,
+	["0VXKESE9"] = true,
+	["ZQFXM33B"] = true,
+	["X6NGKWN8"] = true,
+	["QD2SDSH5"] = true,
+	["VE9G9VIC"] = true,
+	["M1BR4ME2"] = true,
+	["66003ABT"] = true,
+	["FZR6HO3J"] = true,
+	["R96PD739"] = true,
+	["FRS8YF17"] = true,
+	["7S22AT65"] = true,
+	["RMJSV182"] = true,
+	["U2PT44PF"] = true,
+	["HDQL31IZ"] = true,
+	["RMOMOPPH"] = true,
+	["8Z0W4216"] = true,
+	["7ILSFTMR"] = true,
+	["4ZBSFMMK"] = true,
+	["XP0LE1QW"] = true,
+	["HJNMEFQM"] = true,
+	["02FKZEGI"] = true,
+	["IJZ4L7S5"] = true,
+	["JJXBNVIE"] = true,
+	["I63B1LUL"] = true,
+	["0OS3T18Q"] = true,
+	["QE2A4WTC"] = true,
+	["PERHNSZL"] = true,
+	["31C438VJ"] = true,
+	["U2KOUKCF"] = true,
+	["0QKBG64F"] = true,
+	["5SW66MTM"] = true,
+	["9AR9BE2Y"] = true,
+	["RDSL57E2"] = true,
+	["M4DXDFPL"] = true,
+	["3ZOEP418"] = true,
+	["652ZKBX5"] = true,
+	["UECF9V7Z"] = true,
+	["W3JT3X0Q"] = true,
+	["X06OPNWZ"] = true,
+	["Z6AMDQAW"] = true,
+	["9KNHCCIC"] = true,
+	["9QPX5QA1"] = true,
+	["PYGUVO55"] = true,
+	["QC6KJEWB"] = true,
+	["Y2O5W5AK"] = true,
+	["AZZAUHNI"] = true,
+	["479O7YVA"] = true,
+	["ZE5ILRRV"] = true,
+	["B2408WD6"] = true,
+	["D9EBZ2PE"] = true,
+	["T71GZYTW"] = true,
+	["7O3DJHS9"] = true,
+	["AYP0ZRPN"] = true,
+	["U2OSJFFE"] = true,
+	["MQU6TJUB"] = true,
+	["41ED4LMN"] = true,
+	["RBWPOSTJ"] = true,
+	["ZK5QOESW"] = true,
+	["OR9RAEU2"] = true,
+	["FKDWD43X"] = true,
+	["TXOB1GOE"] = true,
+	["DTPFSBYX"] = true,
+	["3EEPQFRX"] = true,
+	["1CLFV8WG"] = true,
+	["DA5VFJMH"] = true,
+	["SN5ZMZ84"] = true,
+	["WPL6C86L"] = true,
+	["5GCWED32"] = true,
+	["IA7X5XNM"] = true,
+	["G4WK4XYI"] = true,
+	["H8V3J0RS"] = true,
+	["I8IRS2L4"] = true,
+	["DPD7NZQQ"] = true,
+	["29DT1VCG"] = true,
+	["BH1M8JAI"] = true,
+	["C2ORHCD4"] = true,
+	["O5Q4KRF1"] = true,
+	["9E3JPE19"] = true,
+	["2N76F55B"] = true,
+	["4DEJIEPO"] = true,
+	["0DPAU67Z"] = true,
+	["90KRG14M"] = true,
+	["NG9TYOKR"] = true,
+	["HD19NZHI"] = true,
+	["E9K3AQZ8"] = true,
+	["VF8PY8HR"] = true,
+	["OEG0NO9Q"] = true,
+	["08JJ2B6R"] = true,
+	["HC75U691"] = true,
+	["C0ABX7UQ"] = true,
+	["7RE4EE8I"] = true,
+	["WWOT96NG"] = true,
+	["W5PLX3W5"] = true,
+	["VXBFA0O3"] = true,
+	["0E7HMA5J"] = true,
+	["FP1MX8A7"] = true,
+	["FAF44YZI"] = true,
+	["02PC1NXD"] = true,
+	["628T16PR"] = true,
+	["SF3IVP7U"] = true,
+	["S8KYYLF8"] = true,
+	["3P4I9ZK2"] = true,
+	["Y14YLA2A"] = true,
+	["0I68PEU7"] = true,
+	["IQDLM1ND"] = true,
+	["HXY3K7TP"] = true,
+	["5KH49UFI"] = true,
+	["RFG8P7BP"] = true,
+	["3EPCEMZ5"] = true
+}
+
+--========================================================
+-- SETTINGS
+--========================================================
+
+local AimbotEnabled = false
+local Smoothness = 15
+local FOV = 150
+
+local CurrentTarget = nil
+local TargetStart = 0
+local LOCK_TIME = 2
+
+--========================================================
+-- KEY GUI
+--========================================================
+
+local KeyGui = Instance.new("ScreenGui")
+KeyGui.Name = "KeySystem"
+KeyGui.ResetOnSpawn = false
+KeyGui.Parent = PlayerGui
+
+local KeyFrame = Instance.new("Frame")
+KeyFrame.Size = UDim2.fromOffset(420,310)
+KeyFrame.Position = UDim2.new(.5,-210,.5,-155)
+KeyFrame.BackgroundColor3 = Color3.fromRGB(20,20,27)
+KeyFrame.BorderSizePixel = 0
+KeyFrame.Parent = KeyGui
+
+Instance.new("UICorner",KeyFrame).CornerRadius = UDim.new(0,12)
+
+local KeyStroke = Instance.new("UIStroke")
+KeyStroke.Color = Color3.fromRGB(65,65,75)
+KeyStroke.Parent = KeyFrame
+
+local KeyTitle = Instance.new("TextLabel")
+KeyTitle.Size = UDim2.new(1,-30,0,40)
+KeyTitle.Position = UDim2.fromOffset(15,10)
+KeyTitle.BackgroundTransparency = 1
+KeyTitle.Text = "KEY SYSTEM"
+KeyTitle.TextColor3 = Color3.new(1,1,1)
+KeyTitle.TextSize = 21
+KeyTitle.Font = Enum.Font.GothamBold
+KeyTitle.TextXAlignment = Enum.TextXAlignment.Left
+KeyTitle.Parent = KeyFrame
+
+local KeyBox = Instance.new("TextBox")
+KeyBox.Size = UDim2.new(1,-30,0,40)
+KeyBox.Position = UDim2.fromOffset(15,58)
+KeyBox.BackgroundColor3 = Color3.fromRGB(38,38,47)
+KeyBox.BorderSizePixel = 0
+KeyBox.PlaceholderText = "Enter your key..."
+KeyBox.PlaceholderColor3 = Color3.fromRGB(130,130,140)
+KeyBox.Text = ""
+KeyBox.TextColor3 = Color3.new(1,1,1)
+KeyBox.TextSize = 14
+KeyBox.Font = Enum.Font.Gotham
+KeyBox.ClearTextOnFocus = false
+KeyBox.Parent = KeyFrame
+
+Instance.new("UICorner",KeyBox).CornerRadius = UDim.new(0,7)
+
+local URLLabel = Instance.new("TextLabel")
+URLLabel.Size = UDim2.new(1,-30,0,20)
+URLLabel.Position = UDim2.fromOffset(15,106)
+URLLabel.BackgroundTransparency = 1
+URLLabel.Text = "Get your key:"
+URLLabel.TextColor3 = Color3.fromRGB(180,180,190)
+URLLabel.TextSize = 12
+URLLabel.Font = Enum.Font.Gotham
+URLLabel.TextXAlignment = Enum.TextXAlignment.Left
+URLLabel.Parent = KeyFrame
+
+local URLBox = Instance.new("TextBox")
+URLBox.Size = UDim2.new(1,-30,0,40)
+URLBox.Position = UDim2.fromOffset(15,128)
+URLBox.BackgroundColor3 = Color3.fromRGB(34,34,42)
+URLBox.BorderSizePixel = 0
+URLBox.Text = JOTFORM_URL
+URLBox.TextColor3 = Color3.fromRGB(90,170,255)
+URLBox.TextSize = 12
+URLBox.Font = Enum.Font.Gotham
+URLBox.ClearTextOnFocus = false
+URLBox.TextEditable = false
+URLBox.Parent = KeyFrame
+
+Instance.new("UICorner",URLBox).CornerRadius = UDim.new(0,7)
+
+local CopyButton = Instance.new("TextButton")
+CopyButton.Size = UDim2.fromOffset(185,40)
+CopyButton.Position = UDim2.fromOffset(15,180)
+CopyButton.BackgroundColor3 = Color3.fromRGB(65,105,220)
+CopyButton.BorderSizePixel = 0
+CopyButton.Text = "SELECT URL"
+CopyButton.TextColor3 = Color3.new(1,1,1)
+CopyButton.TextSize = 13
+CopyButton.Font = Enum.Font.GothamBold
+CopyButton.Parent = KeyFrame
+
+Instance.new("UICorner",CopyButton).CornerRadius = UDim.new(0,7)
+
+local VerifyButton = Instance.new("TextButton")
+VerifyButton.Size = UDim2.fromOffset(185,40)
+VerifyButton.Position = UDim2.fromOffset(220,180)
+VerifyButton.BackgroundColor3 = Color3.fromRGB(45,140,75)
+VerifyButton.BorderSizePixel = 0
+VerifyButton.Text = "VERIFY KEY"
+VerifyButton.TextColor3 = Color3.new(1,1,1)
+VerifyButton.TextSize = 13
+VerifyButton.Font = Enum.Font.GothamBold
+VerifyButton.Parent = KeyFrame
+
+Instance.new("UICorner",VerifyButton).CornerRadius = UDim.new(0,7)
+
+local Status = Instance.new("TextLabel")
+Status.Size = UDim2.new(1,-30,0,40)
+Status.Position = UDim2.fromOffset(15,230)
+Status.BackgroundTransparency = 1
+Status.Text = ""
+Status.TextColor3 = Color3.fromRGB(255,80,80)
+Status.TextSize = 13
+Status.Font = Enum.Font.Gotham
+Status.Parent = KeyFrame
+
+--========================================================
+-- SELECT URL
+--========================================================
+
+CopyButton.MouseButton1Click:Connect(function()
+
+	URLBox.TextEditable = true
+	URLBox:CaptureFocus()
+
+	URLBox.SelectionStart = 1
+	URLBox.CursorPosition = #URLBox.Text + 1
+
+	Status.TextColor3 = Color3.fromRGB(255,200,80)
+	Status.Text = "Press Ctrl+C to copy the URL."
+
+	task.delay(.2,function()
+		URLBox.TextEditable = false
+	end)
+end)
+
+--========================================================
+-- MAIN GUI
+--========================================================
+
+local MainGui = Instance.new("ScreenGui")
+MainGui.Name = "AimControl"
+MainGui.ResetOnSpawn = false
+MainGui.Enabled = false
+MainGui.Parent = PlayerGui
+
+local Main = Instance.new("Frame")
+Main.Size = UDim2.fromOffset(330,330)
+Main.Position = UDim2.new(.5,-165,.5,-165)
+Main.BackgroundColor3 = Color3.fromRGB(22,22,29)
+Main.BorderSizePixel = 0
+Main.Parent = MainGui
+
+Instance.new("UICorner",Main).CornerRadius = UDim.new(0,12)
+
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Color = Color3.fromRGB(65,65,75)
+MainStroke.Parent = Main
+
+--========================================================
+-- DRAG
+--========================================================
+
+local dragging = false
+local dragStart
+local startPosition
+
+Main.InputBegan:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+
+		dragging = true
+		dragStart = input.Position
+		startPosition = Main.Position
+
+	end
+end)
+
+UIS.InputEnded:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = false
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+
+	if dragging and
+		input.UserInputType == Enum.UserInputType.MouseMovement then
+
+		local delta = input.Position - dragStart
+
+		Main.Position = UDim2.new(
+			startPosition.X.Scale,
+			startPosition.X.Offset + delta.X,
+			startPosition.Y.Scale,
+			startPosition.Y.Offset + delta.Y
+		)
+	end
+end)
+
+--========================================================
+-- TITLE
+--========================================================
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1,-30,0,42)
+Title.Position = UDim2.fromOffset(15,5)
+Title.BackgroundTransparency = 1
+Title.Text = "AIM CONTROL"
+Title.TextColor3 = Color3.new(1,1,1)
+Title.TextSize = 20
+Title.Font = Enum.Font.GothamBold
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Parent = Main
+
+--========================================================
+-- AIMBOT
+--========================================================
+
+local AimbotButton = Instance.new("TextButton")
+AimbotButton.Size = UDim2.new(1,-40,0,40)
+AimbotButton.Position = UDim2.fromOffset(20,52)
+AimbotButton.BackgroundColor3 = Color3.fromRGB(45,45,55)
+AimbotButton.BorderSizePixel = 0
+AimbotButton.Text = "Aimbot: OFF"
+AimbotButton.TextColor3 = Color3.new(1,1,1)
+AimbotButton.TextSize = 14
+AimbotButton.Font = Enum.Font.GothamBold
+AimbotButton.Parent = Main
+
+Instance.new("UICorner",AimbotButton).CornerRadius = UDim.new(0,7)
+
+AimbotButton.MouseButton1Click:Connect(function()
+
+	AimbotEnabled = not AimbotEnabled
+
+	if AimbotEnabled then
+
+		AimbotButton.Text = "Aimbot: ON"
+		AimbotButton.BackgroundColor3 =
+			Color3.fromRGB(45,140,75)
+
+	else
+
+		AimbotButton.Text = "Aimbot: OFF"
+		AimbotButton.BackgroundColor3 =
+			Color3.fromRGB(45,45,55)
+
+		CurrentTarget = nil
+		TargetLabel.Text = "Target: None"
+	end
+end)
+
+--========================================================
+-- SLIDER FUNCTION
+--========================================================
+
+local function CreateSlider(
+	name,
+	y,
+	minimum,
+	maximum,
+	default,
+	step,
+	callback
+)
+
+	local Label = Instance.new("TextLabel")
+	Label.Size = UDim2.new(1,-40,0,22)
+	Label.Position = UDim2.fromOffset(20,y)
+	Label.BackgroundTransparency = 1
+	Label.TextColor3 = Color3.new(1,1,1)
+	Label.TextSize = 13
+	Label.Font = Enum.Font.Gotham
+	Label.TextXAlignment = Enum.TextXAlignment.Left
+	Label.Parent = Main
+
+	local Track = Instance.new("Frame")
+	Track.Size = UDim2.new(1,-40,0,8)
+	Track.Position = UDim2.fromOffset(20,y+28)
+	Track.BackgroundColor3 = Color3.fromRGB(55,55,65)
+	Track.BorderSizePixel = 0
+	Track.Parent = Main
+
+	Instance.new("UICorner",Track).CornerRadius =
+		UDim.new(1,0)
+
+	local Fill = Instance.new("Frame")
+	Fill.Size = UDim2.new(0,0,1,0)
+	Fill.BackgroundColor3 = Color3.fromRGB(70,150,255)
+	Fill.BorderSizePixel = 0
+	Fill.Parent = Track
+
+	Instance.new("UICorner",Fill).CornerRadius =
+		UDim.new(1,0)
+
+	local Knob = Instance.new("Frame")
+	Knob.Size = UDim2.fromOffset(14,14)
+	Knob.AnchorPoint = Vector2.new(.5,.5)
+	Knob.BackgroundColor3 = Color3.new(1,1,1)
+	Knob.BorderSizePixel = 0
+	Knob.Parent = Track
+
+	Instance.new("UICorner",Knob).CornerRadius =
+		UDim.new(1,0)
+
+	local function Update(x)
+
+		local percent = math.clamp(
+			(x - Track.AbsolutePosition.X) /
+			Track.AbsoluteSize.X,
+			0,
+			1
+		)
+
+		local value =
+			minimum +
+			(maximum-minimum)*percent
+
+		value = math.round(value/step)*step
+		value = math.clamp(value,minimum,maximum)
+
+		local normalized =
+			(value-minimum)/
+			(maximum-minimum)
+
+		Fill.Size =
+			UDim2.fromScale(normalized,1)
+
+		Knob.Position =
+			UDim2.new(normalized,0,.5,0)
+
+		Label.Text =
+			name..": "..tostring(value)
+
+		callback(value)
+	end
+
+	local initial =
+		Track.AbsolutePosition.X +
+		Track.AbsoluteSize.X *
+		((default-minimum)/(maximum-minimum))
+
+	Update(initial)
+
+	local moving = false
+
+	Track.InputBegan:Connect(function(input)
+
+		if input.UserInputType ==
+			Enum.UserInputType.MouseButton1 then
+
+			moving = true
+			Update(input.Position.X)
+
+		end
+	end)
+
+	UIS.InputChanged:Connect(function(input)
+
+		if moving and
+			input.UserInputType ==
+			Enum.UserInputType.MouseMovement then
+
+			Update(input.Position.X)
+
+		end
+	end)
+
+	UIS.InputEnded:Connect(function(input)
+
+		if input.UserInputType ==
+			Enum.UserInputType.MouseButton1 then
+
+			moving = false
+
+		end
+	end)
+end
+
+--========================================================
+-- SMOOTHNESS
+--========================================================
+
+CreateSlider(
+	"Smoothness",
+	105,
+	5,
+	100,
+	15,
+	5,
+	function(value)
+		Smoothness = value
+	end
+)
+
+--========================================================
+-- FOV
+--========================================================
+
+CreateSlider(
+	"FOV",
+	160,
+	50,
+	500,
+	150,
+	10,
+	function(value)
+		FOV = value
+	end
+)
+
+--========================================================
+-- TARGET
+--========================================================
+
+TargetLabel = Instance.new("TextLabel")
+TargetLabel.Size = UDim2.new(1,-40,0,30)
+TargetLabel.Position = UDim2.fromOffset(20,245)
+TargetLabel.BackgroundTransparency = 1
+TargetLabel.Text = "Target: None"
+TargetLabel.TextColor3 = Color3.fromRGB(200,200,210)
+TargetLabel.TextSize = 14
+TargetLabel.Font = Enum.Font.GothamBold
+TargetLabel.TextXAlignment = Enum.TextXAlignment.Left
+TargetLabel.Parent = Main
+
+--========================================================
+-- FOV CIRCLE
+--========================================================
+
+local Circle = Instance.new("Frame")
+Circle.AnchorPoint = Vector2.new(.5,.5)
+Circle.Position = UDim2.fromScale(.5,.5)
+Circle.BackgroundTransparency = 1
+Circle.Size = UDim2.fromOffset(FOV*2,FOV*2)
+Circle.Parent = MainGui
+
+Instance.new("UICorner",Circle).CornerRadius =
+	UDim.new(1,0)
+
+local CircleStroke = Instance.new("UIStroke")
+CircleStroke.Color = Color3.new(0,0,0)
+CircleStroke.Thickness = 2
+CircleStroke.Parent = Circle
+
+--========================================================
+-- FIND TARGET
+--========================================================
+
+local function GetTarget(previous)
+
+	local center = Vector2.new(
+		Camera.ViewportSize.X/2,
+		Camera.ViewportSize.Y/2
+	)
+
+	local closest = nil
+	local closestDistance = FOV
+
+	for _,target in ipairs(Players:GetPlayers()) do
+
+		if target ~= Player and target ~= previous then
+
+			local character = target.Character
+
+			if character then
+
+				local humanoid =
+					character:FindFirstChildOfClass("Humanoid")
+
+				local head =
+					character:FindFirstChild("Head")
+
+				if humanoid and
+					head and
+					humanoid.Health > 0 then
+
+					local screenPosition,visible =
+						Camera:WorldToViewportPoint(
+							head.Position
+						)
+
+					if visible and screenPosition.Z > 0 then
+
+						local distance =
+							(
+								Vector2.new(
+									screenPosition.X,
+									screenPosition.Y
+								) - center
+							).Magnitude
+
+						if distance <= FOV and
+							distance < closestDistance then
+
+							closest = target
+							closestDistance = distance
+
+						end
+					end
+				end
+			end
+		end
+	end
+
+	return closest
+end
+
+--========================================================
+-- AIM LOOP
+--========================================================
+
+RunService.RenderStepped:Connect(function()
+
+	Circle.Size =
+		UDim2.fromOffset(FOV*2,FOV*2)
+
+	if not AimbotEnabled then
+
+		TargetLabel.Text = "Target: None"
+		return
+	end
+
+	if not CurrentTarget then
+
+		CurrentTarget = GetTarget(nil)
+		TargetStart = tick()
+	end
+
+	if CurrentTarget and
+		tick()-TargetStart >= LOCK_TIME then
+
+		CurrentTarget = GetTarget(CurrentTarget)
+		TargetStart = tick()
+	end
+
+	if CurrentTarget and
+		CurrentTarget.Character then
+
+		local character =
+			CurrentTarget.Character
+
+		local humanoid =
+			character:FindFirstChildOfClass("Humanoid")
+
+		local head =
+			character:FindFirstChild("Head")
+
+		if humanoid and
+			head and
+			humanoid.Health > 0 then
+
+			TargetLabel.Text =
+				"Target: "..CurrentTarget.Name
+
+			local targetCFrame =
+				CFrame.lookAt(
+					Camera.CFrame.Position,
+					head.Position
+				)
+
+			local strength =
+				math.clamp(Smoothness/100,0.01,1)
+
+			Camera.CFrame =
+				Camera.CFrame:Lerp(
+					targetCFrame,
+					strength
+				)
+
+		else
+
+			CurrentTarget = nil
+			TargetLabel.Text = "Target: None"
+
+		end
+
+	else
+
+		TargetLabel.Text = "Target: None"
+
+	end
+end)
+
+--========================================================
+-- KEY VERIFICATION
+--========================================================
+
+VerifyButton.MouseButton1Click:Connect(function()
+
+	local enteredKey =
+		KeyBox.Text:gsub("%s+",""):upper()
+
+	if WHITELIST[enteredKey] then
+
+		Status.TextColor3 =
+			Color3.fromRGB(80,220,110)
+
+		Status.Text = "✓ Key accepted!"
+
+		task.wait(.5)
+
+		KeyGui.Enabled = false
+		MainGui.Enabled = true
+
+	else
+
+		Status.TextColor3 =
+			Color3.fromRGB(255,80,80)
+
+		Status.Text = "✕ Invalid key."
+
+	end
+end)
